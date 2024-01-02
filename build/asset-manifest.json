@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3e21986b.css",
+    "main.js": "/static/js/main.92b81235.js",
+    "static/media/ch_background_compress.jpg": "/static/media/ch_background_compress.faa8ad6a9bc1cfffe743.jpg",
+    "static/media/fontawesome-webfont.svg?v=4.7.0": "/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
+    "static/media/bus_carga.gif": "/static/media/bus_carga.6a6d0ebd1eb40f9e74bf.gif",
+    "static/media/fontawesome-webfont.eot": "/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
+    "static/media/fontawesome-webfont.ttf?v=4.7.0": "/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
+    "static/media/fontawesome-webfont.woff?v=4.7.0": "/static/media/fontawesome-webfont.f691f37e57f04c152e23.woff",
+    "static/media/to-the-point.mp3": "/static/media/to-the-point.0e3efe32429ce76bfed1.mp3",
+    "static/media/fontawesome-webfont.woff2?v=4.7.0": "/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
+    "static/media/office.svg": "/static/media/office.e4e3ef55b10393d2780e694102bb8206.svg",
+    "static/media/icomoon.svg?lph7wa": "/static/media/icomoon.e7e0d5b173d689707afb.svg",
+    "static/media/icomoon.eot?lph7wa": "/static/media/icomoon.4a6bd58eb4321fd5cc2e.eot",
+    "static/media/icomoon.woff?lph7wa": "/static/media/icomoon.5bf5fccc7561331b43bc.woff",
+    "static/media/icomoon.ttf?lph7wa": "/static/media/icomoon.08696a3cc810aff48bd6.ttf",
+    "static/media/logo.svg": "/static/media/logo.ad086b87d3864a88eeaf60156367a97e.svg",
+    "index.html": "/index.html",
+    "main.3e21986b.css.map": "/static/css/main.3e21986b.css.map",
+    "main.92b81235.js.map": "/static/js/main.92b81235.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3e21986b.css",
+    "static/js/main.92b81235.js"
+  ]
+}
