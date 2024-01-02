@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Button, Divider, Drawer } from "@mui/material";
 import Loading from "../common/Loading";
 import DetallePuesto from "./DetallePuesto";
@@ -107,9 +107,10 @@ const CargasMarquesinas = ({
     };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (auth.userData) {
-      const { token, terminalId } = auth.userData;
+      const { terminalId } = auth.userData;
+      const token = window.localStorage.getItem("token");
       const eventCargas = new EventSource(
         `${config.endPoints.sse}/events/${token}`
       );
