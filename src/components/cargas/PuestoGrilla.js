@@ -245,7 +245,7 @@ const PuestoGrilla = ({
 
   const estiloPuesto =
     (puesto.alertas && puesto.alertas.length > 0) ||
-    (puesto.soc >= 99 && puesto.estado > 2)
+    (puesto.soc >= 99 && puesto.estado === 3)
       ? "puestoGrilla blink"
       : puesto.estado != 8
       ? "puestoGrilla"

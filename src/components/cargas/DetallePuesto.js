@@ -469,7 +469,7 @@ const DetallePuesto = ({
                   <CloudSyncIcon sx={{ fontSize: isMobile ? 40 : 20 }} />
                 }
                 onClick={() =>
-                  props.onSyncPress(
+                  handleSync(
                     data.cargadorOrigen.id,
                     data.marquesina.id,
                     data.puesto.id,
