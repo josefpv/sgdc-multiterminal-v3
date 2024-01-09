@@ -176,6 +176,7 @@ export const getAccessPage = () => (dispatch, getState) => {
     {
       perfil_id: 3,
       paginas: [
+        "seleccion",
         "cargabombero",
         "historial",
         "profile",
