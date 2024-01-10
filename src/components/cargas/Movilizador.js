@@ -75,7 +75,7 @@ const Movilizador = ({ getAccessPage, auth }) => {
                       >
                         <Tab
                           label={`Marquesinas - ${
-                            auth.userData && auth.userData.terminal.nombre
+                            auth.userData && auth.userData.terminal
                           }`}
                           {...a11yProps(0)}
                         />

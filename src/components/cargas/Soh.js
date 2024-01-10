@@ -71,10 +71,6 @@ const Soh = ({
     return () => {
       clearSoH();
     };
-  }, []);
-
-  useEffect(() => {
-    fetchSohBuses(fecha);
   }, [fecha]);
 
   const tableCols = [
@@ -134,7 +130,6 @@ const Soh = ({
   };
 
   const renderGraph = (historySoh) => {
-    console.log(historySoh);
     return (
       <Grid2 container>
         <Grid2 xs={12} md={12}>

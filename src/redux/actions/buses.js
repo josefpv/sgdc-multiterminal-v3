@@ -120,14 +120,13 @@ export const setSohCols = () => {
 export const fetchSohBuses = (fecha) => async (dispatch) => {
   const terminalId = parseInt(localStorage.getItem("terminalId"));
   const fechaConsulta = new Date(fecha);
-  console.log(
-    `${fechaConsulta.getUTCFullYear()}-${
-      fechaConsulta.getUTCMonth() + 1
-    }-${fechaConsulta.getUTCDate()}`
-  );
-  const fechaQuery = `${fechaConsulta.getUTCFullYear()}-${
-    fechaConsulta.getUTCMonth() + 1
-  }-${fechaConsulta.getUTCDate()}`;
+  const fechaQuery = `${String(fechaConsulta.getUTCFullYear()).padStart(
+    2,
+    "0"
+  )}-${String(fechaConsulta.getUTCMonth() + 1).padStart(2, "0")}-${String(
+    fechaConsulta.getUTCDate()
+  ).padStart(2, "0")}`;
+
   const urlBuses = `${config.endPoints.fetchBusesSoh}/${terminalId}/${fechaQuery}`;
   http
     .get(urlBuses)
@@ -151,9 +150,12 @@ export const setEditingRow = () => async (dispatch, getState) => {
 
 export const fetchHistorySoh = (params, fecha) => async (dispatch) => {
   const fechaConsulta = new Date(fecha);
-  const fechaQuery = `${fechaConsulta.getUTCFullYear()}-${
-    fechaConsulta.getUTCMonth() + 1
-  }-${fechaConsulta.getUTCDate()}`;
+  const fechaQuery = `${String(fechaConsulta.getUTCFullYear()).padStart(
+    2,
+    "0"
+  )}-${String(fechaConsulta.getUTCMonth() + 1).padStart(2, "0")}-${String(
+    fechaConsulta.getUTCDate()
+  ).padStart(2, "0")}`;
 
   const { ppu } = params.row;
 
@@ -181,9 +183,12 @@ export const updateSoH = (inputs) => async (dispatch) => {
   const { ppu, soh, usuarioId, fecha } = inputs;
 
   const fechaConsulta = new Date(fecha);
-  const fechaQuery = `${fechaConsulta.getUTCFullYear()}-${
-    fechaConsulta.getUTCMonth() + 1
-  }-${fechaConsulta.getUTCDate()}`;
+  const fechaQuery = `${String(fechaConsulta.getUTCFullYear()).padStart(
+    2,
+    "0"
+  )}-${String(fechaConsulta.getUTCMonth() + 1).padStart(2, "0")}-${String(
+    fechaConsulta.getUTCDate()
+  ).padStart(2, "0")}`;
 
   const dataApi = {
     SoH: soh,

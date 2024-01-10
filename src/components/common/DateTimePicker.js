@@ -25,7 +25,9 @@ const DateTimePicker = ({
     let [day, month, year] = new Date(date)
       .toLocaleDateString("es-ES")
       .split("/");
-    const fechaFiltro = `${year}-${month}-${day}`;
+    const fechaFiltro = `${year}-${String(month).padStart(2, "0")}-${String(
+      day
+    ).padStart(2, "0")}`;
     onChangeDate(fechaFiltro);
   };
 
