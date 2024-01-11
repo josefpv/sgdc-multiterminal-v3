@@ -30,6 +30,7 @@ axios.interceptors.response.use(
 
     //401 Not authorized : redirecting to login page
     if (error.response.status === 401 || error.response.status === 403) {
+      window.localStorage.clear();
       window.location = "/login";
     }
 
