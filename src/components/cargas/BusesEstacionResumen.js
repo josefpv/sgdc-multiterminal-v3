@@ -37,13 +37,7 @@ const columns2 = [
     headerName: "Reservado a las:",
     width: 150,
     valueFormatter: (params) => {
-      var d = new Date(params.value);
-
-      return params.value
-        ? `${d.getDate()}/${
-            d.getMonth() + 1
-          }/${d.getFullYear()} ${d.getUTCHours()}:${d.getUTCMinutes()}`
-        : "--:--";
+      return params.value ? params.value : "--:--";
     },
   },
   {
@@ -51,12 +45,7 @@ const columns2 = [
     headerName: "Iniciado a las:",
     width: 150,
     valueFormatter: (params) => {
-      var d = new Date(params.value);
-      return params.value
-        ? `${d.getDate()}/${
-            d.getMonth() + 1
-          }/${d.getFullYear()} ${d.getUTCHours()}:${d.getUTCMinutes()}`
-        : "--:--";
+      return params.value ? params.value : "--:--";
     },
   },
 ];
