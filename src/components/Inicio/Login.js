@@ -44,9 +44,6 @@ const Login = ({ auth }) => {
           </Grid2>
         )}
         <Grid2 sx={{ bottom: 0, right: 0, position: "absolute" }}>
-          <Typography component="div" variant="caption">
-            BETA
-          </Typography>
           <Tooltip title="Notas de versión">
             <Link to="/notasversion" style={{ textDecoration: "none" }}>
               <LiveHelpIcon color="secondary" />
