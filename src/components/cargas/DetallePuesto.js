@@ -267,13 +267,13 @@ const DetallePuesto = ({
 
   const handleAccionPistola = (accion) => {
     let tiempoCarga = 30000;
-    const { energiaCarga } = data.puesto;
+    const { estado } = data.puesto;
     if (accion === 2) tiempoCarga = 40000;
 
     setIsLoading(true);
 
     if (accion === 0 || accion === 1) {
-      if (parseInt(energiaCarga, 10) > 0) {
+      if (estado === 3) {
         //el cargador esta en uso
         toast.error(
           "El cargador se encuentra en uso, por favor finalice la carga antes de accionar la pistola."
@@ -303,7 +303,7 @@ const DetallePuesto = ({
         tiempoTecleFinal = data.puesto.tiempo;
       }
 
-      console.info("Se accionara tecle a: ", tiempoTecleFinal);
+      //console.info("Se accionara tecle a: ", tiempoTecleFinal);
       handleAccionaTecle(
         data.cargadorOrigen.id,
         data.puesto.id,
