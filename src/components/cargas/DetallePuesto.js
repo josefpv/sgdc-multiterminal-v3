@@ -419,7 +419,11 @@ const DetallePuesto = ({
             component="div"
             variant="h3"
           >
-            {`Pistola ${data.puesto.nombre} (${data.cargadorOrigen.nombre})`}
+            {`Pistola ${data.puesto.nombre} ${
+              Object.keys(data.puesto.bus).length
+                ? `(${data.puesto.bus.ppu})`
+                : ""
+            }`}
             {/* {data.puesto && data.puesto.estado === 2 && topButtons ? (
               <IconButton
                 aria-label="subidaMasiva"

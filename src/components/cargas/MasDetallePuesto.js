@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
+import SettingsRemoteRoundedIcon from "@mui/icons-material/SettingsRemoteRounded";
 import ElectricalServicesIcon from "@mui/icons-material/ElectricalServices";
 import BatteryChargingFullIcon from "@mui/icons-material/BatteryChargingFull";
 import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
@@ -81,10 +82,10 @@ const MasDetallePuesto = ({ data, handleReinicioForzado }) => {
           }}
         >
           <Typography component="div" variant="h6">
-            <DirectionsBusIcon />
+            <SettingsRemoteRoundedIcon />
           </Typography>
           <Typography component="div" variant="subtitle1">
-            {data.puesto.bus.ppu ? `PPU: ${data.puesto.bus.ppu}` : "No hay bus"}
+            {`Soporte: ${data.puesto.dhemaxId}`}
           </Typography>
         </Box>
       </Grid2>

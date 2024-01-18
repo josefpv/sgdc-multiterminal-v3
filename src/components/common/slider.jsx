@@ -68,8 +68,8 @@ const marks = [
     label: "1",
   },
   {
-    value: 30,
-    label: "30",
+    value: 40,
+    label: "40",
   },
 ];
 
@@ -100,7 +100,7 @@ export default function SliderRange(props) {
         getAriaValueText={valuetext}
         aria-labelledby="discrete-slider-custom"
         step={1}
-        max={30}
+        max={40}
         min={1}
         valueLabelDisplay="on"
         marks={marks}

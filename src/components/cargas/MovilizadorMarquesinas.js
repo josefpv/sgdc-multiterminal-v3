@@ -134,12 +134,16 @@ const MovilizadorMarquesinas = ({
     const countInhabilitados = pistolasTodas.filter(
       (pistola) => pistola.estado === 5
     ).length;
+    const countOperativo = pistolasTodas.filter(
+      (pistola) => pistola.estado === 6
+    ).length;
     return {
       countDisponibles,
       countReservados,
       countCargando,
       countOcupados,
       countInhabilitados,
+      countOperativo,
     };
   };
 

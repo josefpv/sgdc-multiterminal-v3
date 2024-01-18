@@ -97,7 +97,6 @@ const CambioEstados = ({
   };
 
   //contador de cargadores
-
   const setCounter = () => {
     let pistolasTodas = [];
     marquesinas.map((marquesina) =>
@@ -123,12 +122,16 @@ const CambioEstados = ({
     const countInhabilitados = pistolasTodas.filter(
       (pistola) => pistola.estado === 5
     ).length;
+    const countOperativo = pistolasTodas.filter(
+      (pistola) => pistola.estado === 6
+    ).length;
     return {
       countDisponibles,
       countReservados,
       countCargando,
       countOcupados,
       countInhabilitados,
+      countOperativo,
     };
   };
 

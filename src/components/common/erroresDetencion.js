@@ -31,7 +31,7 @@ const ErroresDetencion = ({ onSeleccionError }) => {
   }, []);
 
   useEffect(() => {
-    if (socket !== "-") {
+    if (socket !== "-" && socket !== "") {
       console.log("enviar...", errorActivo, socket);
       onSeleccionError(errorActivo, socket);
     }
