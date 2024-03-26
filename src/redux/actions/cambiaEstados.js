@@ -6,11 +6,13 @@ import {
   SET_SELECTED_PPU,
   CHANGE_CHARGER_STATUS,
   RESET_VALUES_CHANGE_CHARGER_STATUS,
+  SET_IS_LOADING_BTN,
 } from "./types";
 import history from "./../../history";
 import http from "./../../components/services/httpService";
 import config from "./../../config.json";
 import { toast } from "react-toastify";
+import { fetchMarquesinas } from "./cargas";
 
 export const setPuesto = (puesto) => {
   return {
@@ -56,16 +58,20 @@ export const changeChargerStatus =
       !bus.hasOwnProperty("ppu")
     ) {
       toast.error("Debe asignar una patente al puesto (pistola).");
+      dispatch(setIsLoadingBtn(false));
     } else if (estado === 2 && !bus.en_estudio && puesto.especial) {
       toast.error(
         `El cargador que intenta reservar está solo disponible para buses bajo estudio especial. ${bus.ppu} no se encuentra bajo estudio especial, por favor seleccione un cargador común.`
       );
+      dispatch(setIsLoadingBtn(false));
     } else if (estado === 2 && bus.en_estudio && !puesto.especial) {
       toast.error(
         `El bus ${bus.ppu} está bajo estudio especial por lo que solo puede ingresar (reservar) en puestos marcados como 'especial', por favor seleccione otro cargador.`
       );
+      dispatch(setIsLoadingBtn(false));
     } else if (estado === puesto.estado) {
       toast.error("El puesto (pistola) ya se encuentra en ese estado.");
+      dispatch(setIsLoadingBtn(false));
     } else {
       const ppu = bus && bus.ppu ? bus.ppu : "";
 
@@ -81,17 +87,23 @@ export const changeChargerStatus =
       http
         .post(url, dataCambiaEstado)
         .then(({ data }) => {
-          toast.success(data.msg);
           dispatch({
             type: CHANGE_CHARGER_STATUS,
           });
-          redirect ? history.push("/cambiaestados") : null;
+          toast.success(`${data.msg}, por favor espere...`);
+        })
+        .then(() => {
+          dispatch(fetchMarquesinas()).then(() => {
+            dispatch(setIsLoadingBtn(false));
+            redirect ? history.push("/cambiaestados") : null;
+          });
         })
         .catch((error) => {
           console.log(error);
           dispatch({
             type: CHANGE_CHARGER_STATUS,
           });
+          dispatch(setIsLoadingBtn(false));
         });
     }
   };
@@ -99,5 +111,12 @@ export const changeChargerStatus =
 export const resetValuesChangeChargerStatus = () => {
   return {
     type: RESET_VALUES_CHANGE_CHARGER_STATUS,
+  };
+};
+
+export const setIsLoadingBtn = (isLoading) => {
+  return {
+    type: SET_IS_LOADING_BTN,
+    payload: isLoading,
   };
 };

@@ -6,6 +6,8 @@ import {
   GET_CURRENT_LOCATION,
   GET_ACCESS_PAGES,
   SET_APP_CONFIG_PARAMS,
+  SET_RED_LENTA_NOTIFICACION,
+  SET_RED_LENTA_NOTIFICACION_DESCARTADO,
 } from "./../actions/types";
 
 const INITIAL_STATE = {
@@ -17,6 +19,8 @@ const INITIAL_STATE = {
     terminalId: null,
     cantColumnas: 0,
   },
+  redLenta: false,
+  redLentaNotificacionDescartada: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -59,7 +63,13 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         currentLocation: action.payload,
       };
-
+    case SET_RED_LENTA_NOTIFICACION:
+      return {
+        ...state,
+        redLenta: action.payload,
+      };
+    case SET_RED_LENTA_NOTIFICACION_DESCARTADO:
+      return { ...state, redLentaNotificacionDescartada: action.payload };
     default:
       return state;
   }

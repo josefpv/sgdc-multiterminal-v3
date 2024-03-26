@@ -7,16 +7,35 @@ import { toast } from "react-toastify";
 axios.interceptors.request.use(function (config) {
   const token = JSON.parse(window.localStorage.getItem("token"));
   config.headers.authorization = `Bearer ${token}`;
+
+  //para detectar cuando este mala la red
+  if (
+    config.url.split("/")[3] === "marquesinas" &&
+    config.url.split("/")[4] === "estacion"
+  ) {
+    config.metadata = { startTime: new Date() };
+  }
+
+  config.url = `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}${config.url}`;
+
   return config;
 });
 
 axios.interceptors.response.use(
   function (config) {
-    //console.log(config.status);
+    //para detectar cuando este mala la red
+    if (
+      config.config.url.split("/")[5] === "marquesinas" &&
+      config.config.url.split("/")[6] === "estacion"
+    ) {
+      config.config.metadata.endTime = new Date();
+      config.duration =
+        config.config.metadata.endTime - config.config.metadata.startTime;
+    }
     return config;
   },
   (error) => {
-    console.log("ERROR: ", error.response);
+    console.log("ERROR: ", error);
     const expectedError =
       error.response &&
       error.response.status >= 400 &&

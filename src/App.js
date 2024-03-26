@@ -39,6 +39,16 @@ import Ajustes from "./components/cargas/Ajustes";
 import NotasVersion from "./components/Inicio/NotasVersion";
 import Movilizador from "./components/cargas/Movilizador";
 import Preventiva from "./components/preventiva/Preventiva";
+import {
+  Alert,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
 
 let theme = createTheme({
   components: {
@@ -83,6 +93,7 @@ theme = responsiveFontSizes(theme);
 function App(props) {
   let IdleTimer = null;
   const [usuario, setUsuario] = useState(null);
+  const [isInfoOpen, setIsInfoOpen] = useState(false);
 
   useLayoutEffect(() => {
     window.title = "SGDC - STP Santiago";
@@ -136,10 +147,67 @@ function App(props) {
         draggable
         pauseOnHover
       />
-
+      <Dialog
+        open={isInfoOpen}
+        onClose={() => setIsInfoOpen(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          ¡CONEXIÓN A INTERNET LENTA!
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography gutterBottom>
+            Tu conexión a internet parece estar lenta por lo que algunas
+            funciones de SGDC pueden verse afectadas o pueden demorar más de lo
+            normal en completarse. Sin embargo, te recomendamos intentar lo
+            siguiente:
+          </Typography>
+          <Typography gutterBottom>
+            - Conéctate a tu red móvil o a una red wifi estable.
+          </Typography>
+          <Typography gutterBottom>
+            - Intenta cambiar a una ubicación más cercana al punto de acceso de
+            red si estás conectado a una red wifi.
+          </Typography>
+          <Typography gutterBottom>
+            - Reinicia las conexiones de tu dispositivo movíl (si estás
+            conectado desde uno).
+          </Typography>
+          <Typography gutterBottom>
+            - NO REALICES DOS VECES LA MISMA ACCIÓN, por ejemplo, si inicias una
+            carga o reservas, espera obtener una respuesta del sistema para
+            volver a realizar la misma acción.
+          </Typography>
+          <Typography gutterBottom>
+            En la mayoría de los casos, este problema suele resolverse con el
+            tiempo ya que puede deberse a factores externos, sin embargo, si el
+            problema persiste despúes de mucho tiempo, contacta al administrador
+            del sistema.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button color="secondary" onClick={() => setIsInfoOpen(false)}>
+            Entendido
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Router history={history}>
         <div>
           {renderHeader(usuario)}
+          {props.auth.redLenta &&
+          props.auth.isSignedIn &&
+          Boolean(props.auth.redLentaNotificacionDescartada) === false ? (
+            <Alert
+              variant="filled"
+              severity="warning"
+              sx={{ borderRadius: 0, cursor: "pointer" }}
+              onClick={() => setIsInfoOpen(true)}
+            >
+              ¡Vaya! parece que tu red está lenta, SGDC puede tener problemas
+              con algunas funciones, haz clic aquí para mayor información.
+            </Alert>
+          ) : null}
           <Switch>
             <Route path="/seleccion/:ppu?" component={Seleccion} />
             <Route path="/soh" component={Soh} />

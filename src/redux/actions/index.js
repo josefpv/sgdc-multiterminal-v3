@@ -5,6 +5,8 @@ import {
   FETCH_CURRENT_USER,
   GET_ACCESS_PAGES,
   SET_APP_CONFIG_PARAMS,
+  SET_RED_LENTA_NOTIFICACION,
+  SET_RED_LENTA_NOTIFICACION_DESCARTADO,
 } from "./types";
 import { redirectLoggedIn_ } from "./../../components/services/authService";
 import http from "./../../components/services/httpService";
@@ -57,6 +59,7 @@ export const signIn = (username, password) => async (dispatch) => {
       );
     })
     .catch((error) => {
+      console.log("Error Login: ", error);
       dispatch({
         type: TOGGLE_LOGIN_BTN_LOADING,
         payload: false,
@@ -222,6 +225,20 @@ export const getAccessPage = () => (dispatch, getState) => {
     const redirectTo = redirectLoggedIn_(currentUserProfile);
     history.push(redirectTo);
   }
+};
+
+export const setRedLenta = (estaRedLenta) => {
+  return {
+    type: SET_RED_LENTA_NOTIFICACION,
+    payload: estaRedLenta,
+  };
+};
+
+export const setRedLentaNotificacionDescartada = (descartada) => {
+  return {
+    type: SET_RED_LENTA_NOTIFICACION_DESCARTADO,
+    payload: descartada,
+  };
 };
 
 const getCantColumnasTerminal = (terminalId) => {

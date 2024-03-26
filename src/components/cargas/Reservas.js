@@ -100,6 +100,7 @@ const Reservas = ({
     return () => {
       clearInterval(intervalId);
       unsetIntervalFetchMarquesinas();
+      setSelectedPuesto(null);
     };
   }, []);
 
@@ -391,7 +392,7 @@ const Reservas = ({
         `¿Desea reservar puesto ${cargador} en marquesina ${marquesina} para la ${ppu}?`
       );
       if (!confirmReserva) return; */
-      console.log("Se reserva unicamente");
+      //console.log("Se reserva unicamente");
       makeReserva(
         marquesinaId,
         cargadorId,
@@ -400,6 +401,16 @@ const Reservas = ({
         usuarioId,
         socInicial
       );
+      //revierte estado de la pistola seleccionada
+      const copiaPistola = {
+        ...marquesinas[selectedPuesto.indexMarquesina].cargadores[
+          selectedPuesto.indexCargador
+        ].pistolas[selectedPuesto.indexPistola],
+      };
+      copiaPistola.estado = 2;
+      marquesinas[selectedPuesto.indexMarquesina].cargadores[
+        selectedPuesto.indexCargador
+      ].pistolas[selectedPuesto.indexPistola] = copiaPistola;
       history.push({ pathname: "/seleccion/", state: { ppu } });
       //
     } else {

@@ -21,7 +21,7 @@ export const showReserva = (reservaData) => async (dispatch) => {
 };
 
 const insertReservaScreen = async (marquesina, fila, cargador, ppu, soc) => {
-  const url = config.global + config.endPoints.insertaReservaPantalla;
+  const url = `${config.endPoints.insertaReservaPantalla}`;
   const validSoc = soc === "--" ? 0 : soc;
   const dataReserva = {
     marquesina,

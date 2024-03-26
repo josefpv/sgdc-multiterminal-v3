@@ -6,6 +6,7 @@ import {
   SET_SELECTED_PPU,
   CHANGE_CHARGER_STATUS,
   RESET_VALUES_CHANGE_CHARGER_STATUS,
+  SET_IS_LOADING_BTN,
 } from "./../actions/types";
 
 const INITIAL_STATE = {
@@ -14,6 +15,7 @@ const INITIAL_STATE = {
   puesto: {},
   selectedChargerStatus: null,
   ppuSelected: {},
+  isLoadingBtn: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -47,7 +49,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
       };
-
+    case SET_IS_LOADING_BTN:
+      return {
+        ...state,
+        isLoadingBtn: action.payload,
+      };
     case RESET_VALUES_CHANGE_CHARGER_STATUS:
       return { ...INITIAL_STATE };
     default:

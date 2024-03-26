@@ -88,7 +88,7 @@ const CargasMarquesinas = ({
     intervalId = setInterval(() => {
       obtieneMarquesinas();
       isAppLocked();
-    }, 10000);
+    }, 5000);
 
     setIntervalFetchMarquesinas(intervalId);
     fetchInnerStateChargers();

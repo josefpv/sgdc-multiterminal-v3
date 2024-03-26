@@ -19,6 +19,7 @@ import {
   setSelectedPpu,
   changeChargerStatus,
   resetValuesChangeChargerStatus,
+  setIsLoadingBtn,
 } from "./../../redux/actions/cambiaEstados";
 import { showReserva } from "./../../redux/actions/asignador";
 import { getAccessPage } from "./../../redux/actions";
@@ -30,8 +31,11 @@ import MyField from "./../common/input_redux";
 import { Form } from "react-final-form";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { Alert, Button, Chip, Divider, Typography } from "@mui/material";
+
 import SeleccionDerivacion from "../common/SeleccionDerivacion";
 import { scrollToBottom, scrollToMiddle } from "./../../utils/scrolling";
+import { LoadingButton } from "@mui/lab";
+import _ from "lodash";
 
 const CambiaEstadoDetalle = (props) => {
   const [ppu, setPpu] = useState("");
@@ -173,6 +177,7 @@ const CambiaEstadoDetalle = (props) => {
   };
 
   const handleChangeStatus = async () => {
+    props.setIsLoadingBtn(true);
     const { busSelected } = props;
     //console.log("BUS SELECCIONADO: ", busSelected.ppu);
     const { userData } = props.auth;
@@ -182,6 +187,33 @@ const CambiaEstadoDetalle = (props) => {
       props.makeDerivacion(busSelected.ppu, props.selectedDerivacion);
     }
 
+    //muestra al instante reserva
+    /*   const indexMarquesina = _.findIndex(props.marquesinas, {
+      id: marquesina.id,
+    });
+
+    const indexCargador = _.findIndex(
+      props.marquesinas[indexMarquesina].cargadores,
+      {
+        id: cargadorOrigen.id,
+      }
+    );
+
+    const indexPistola = _.findIndex(
+      props.marquesinas[indexMarquesina].cargadores[indexCargador].pistolas,
+      { id: puesto.id }
+    );
+
+    const copiaPistola = {
+      ...props.marquesinas[indexMarquesina].cargadores[indexCargador].pistolas[
+        indexPistola
+      ],
+    };
+    copiaPistola.estado = 2;
+    props.marquesinas[indexMarquesina].cargadores[indexCargador].pistolas[
+      indexPistola
+    ] = copiaPistola; */
+
     await props.changeChargerStatus(
       marquesina.id,
       cargadorOrigen.id,
@@ -190,21 +222,6 @@ const CambiaEstadoDetalle = (props) => {
       busSelected,
       userData.id
     );
-
-    /*
-    if (selectedChargerStatus === 2 || selectedChargerStatus === 4) {
-      const reservaData = {
-        marquesina: marquesina.nombre,
-        fila: puesto.fila,
-        cargador: puesto.nombre,
-        ppu: busSelected.ppu,
-        soc: 0,
-      };
-
-      pantalla de turnos
-      await props.showReserva(reservaData);
-    }
-    */
   };
 
   const {
@@ -229,13 +246,14 @@ const CambiaEstadoDetalle = (props) => {
             {bus && bus.ppu ? ` (${bus.ppu})` : null}
           </Typography>
           <Link style={{ textDecoration: "none" }} to="/cambiaestados">
-            <Button
+            <LoadingButton
               color="secondary"
               variant="outlined"
               startIcon={<ArrowBackIcon />}
+              loading={props.isLoadingBtn}
             >
               Regresar a marquesinas
-            </Button>
+            </LoadingButton>
           </Link>
         </Grid2>
         <Grid2 xs={12} md={12}>
@@ -448,30 +466,33 @@ const CambiaEstadoDetalle = (props) => {
                 </Grid2>
               ))}
             <Grid2 xs={6} md={6}>
-              <Button
+              <LoadingButton
                 color="secondary"
                 variant="outlined"
                 onClick={handleChangeStatus}
                 startIcon={<CheckIcon />}
                 disabled={selectedChargerStatus ? false : true}
                 fullWidth
+                loading={props.isLoadingBtn}
               >
                 Cambiar Estado
-              </Button>
+              </LoadingButton>
             </Grid2>
+
             <Grid2 xs={6} md={6}>
               {ppuSelected &&
               (selectedChargerStatus === 2 || selectedChargerStatus === 4) ? (
-                <Button
+                <LoadingButton
                   variant="outlined"
                   color="secondary"
                   style={{ marginLeft: 5 }}
                   onClick={() => handleSelectPatente("")}
                   fullWidth
                   startIcon={<ReplayIcon />}
+                  loading={props.isLoadingBtn}
                 >
                   Asignar otro bus
-                </Button>
+                </LoadingButton>
               ) : null}
             </Grid2>
           </Grid2>
@@ -493,6 +514,7 @@ const mapStateToProps = (state) => {
     buses: state.buses,
     busSelected: state.cambiaEstados.ppuSelected,
     selectedDerivacion: state.derivacion.selectedDerivacion,
+    isLoadingBtn: state.cambiaEstados.isLoadingBtn,
   };
 };
 
@@ -509,4 +531,5 @@ export default connect(mapStateToProps, {
   getAccessPage,
   showReserva,
   makeDerivacion,
+  setIsLoadingBtn,
 })(CambiaEstadoDetalle);

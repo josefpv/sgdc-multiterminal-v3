@@ -31,13 +31,23 @@ import config from "./../../config.json";
 import { toast } from "react-toastify";
 //Estados Internos
 import { obtieneCargadoresEstados } from "./../../components/services/cargadoresEstado";
+import { setRedLenta } from ".";
 
 //Cargas Bomberos
 export const fetchMarquesinas = () => async (dispatch) => {
   const terminalId = localStorage.getItem("terminalId");
   const url = `${config.endPoints.consultaCargadores}${terminalId}`;
-  const { data } = await http.get(url);
-
+  const response = await http.get(url);
+  const { data } = response;
+  console.log("Se consultan marquesinas.....", response);
+  //evaluo duracion
+  if ("duration" in response) {
+    if (response.duration >= 5000) {
+      dispatch(setRedLenta(true));
+    } else {
+      dispatch(setRedLenta(false));
+    }
+  }
   !data.completado &&
     toast.error(
       "No se ha podido cargar las marquesinas, por favor intente nuevamente actualizando la página."
@@ -289,6 +299,8 @@ export const fetchMarquesinas = () => async (dispatch) => {
     type: FETCH_MARQUESINAS,
     payload: data.marquesinas,
   });
+
+  return Promise.resolve();
 };
 
 export const updateMarquesinasManually = (data) => {
@@ -772,21 +784,18 @@ export const makeReserva =
       };
     }
 
-    const { data: response } = await http.post(url, data);
-    //console.log("RESPUESTA RESERVA: ", response);
-
-    dispatch({
-      type: MAKE_RESERVA,
-      payload: response,
-    });
-
-    /* if (!response.completado) {
-      toast.error(
-        "No se ha podido realizar la reserva, por favor intente nuevamente."
-      );
-      //la redireccion se hara ahora desde Reserva.js
-      //history.push({ pathname: "/seleccion/", state: { ppu } });
-    } */
+    http
+      .post(url, data)
+      .then(({ data: response }) => {
+        dispatch({
+          type: MAKE_RESERVA,
+          payload: response,
+        });
+      })
+      .finally(() => {
+        console.log("Se vuelve a consultar marquesinas...");
+        dispatch(fetchMarquesinas());
+      });
   };
 
 export const handleReinicioForzado =
